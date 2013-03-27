@@ -3,7 +3,7 @@ CFLAGS	= -g -Wall
 RM		= rm
 
 CSRCS	= main.c game_of_life.c
-TARGET	= game_of_life_openMP
+TARGET	= game_of_life_serial
 OBJECTS	= $(CSRCS:.c=.o)
 
 all: $(TARGET)
