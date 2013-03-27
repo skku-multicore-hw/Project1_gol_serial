@@ -88,8 +88,8 @@ char*** Analysis_file(char* filename, int* parameters){
 
 	return Return_Cube;
 }
-
-void Make_output_life(char*** Cube){
+//This function will make output.life
+void Make_output_life(char*** Cube,int dim){
 
 	return ;
 }
@@ -98,10 +98,10 @@ void game_of_life(char* filename){
 
 	int parameters[Parameter];
 	char ***Cube;
-	int i,j,k;
+//	int i,j,k;
 
 	Cube = Analysis_file(filename,parameters);
-
+	Make_output_life(Cube,parameters[0]);
 // This Line test parameters
 // parameters[0] length
 // parameters[1] D1
