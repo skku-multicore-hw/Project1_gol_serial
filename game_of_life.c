@@ -10,9 +10,23 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+//This function will return 3D_Cube
+char ***Make_3D_Cube(int dim){
+	char ***Make_Cube;
+	int i,j;
 
-
-// This function will return parameter and 3D_seed cell
+	Make_Cube = (char***)malloc(dim*sizeof(char**));
+	for(i=0;i<dim;i++){
+		Make_Cube[i] = (char**)malloc(dim*sizeof(char*));
+	}
+	for(i=0;i<dim;i++){
+		for(j=0;j<dim;j++){
+			Make_Cube[i][j] = (char*)malloc(dim*sizeof(char));
+		}
+	}
+	return Make_Cube;
+}
+// This function will return parameters and 3D_seed cell
 char*** Analysis_file(char* filename, int* parameters){
 
 	int nFile_in;
@@ -47,18 +61,10 @@ char*** Analysis_file(char* filename, int* parameters){
 		else  temp[m++]= buf[n];
 		n++;
 	}
+
 	dim = parameters[0];
+	Return_Cube = Make_3D_Cube(parameters[0]);
 
-	Return_Cube = (char***)malloc(dim*sizeof(char**));
-	for(i=0;i<dim;i++){
-		Return_Cube[i] = (char**)malloc(dim*sizeof(char*));
-	}
-
-	for(i=0;i<dim;i++){
-		for(j=0;j<dim;j++){
-			Return_Cube[i][j] = (char*)malloc(dim*sizeof(char));
-		}
-	}
 
 	for(i=0;i<dim;i++){
 		for(j=0;j<dim;j++){
@@ -83,12 +89,16 @@ char*** Analysis_file(char* filename, int* parameters){
 	return Return_Cube;
 }
 
+void Make_output_life(char*** Cube){
+
+	return ;
+}
 
 void game_of_life(char* filename){
 
 	int parameters[Parameter];
 	char ***Cube;
-//	int i,j,k;
+	int i,j,k;
 
 	Cube = Analysis_file(filename,parameters);
 
