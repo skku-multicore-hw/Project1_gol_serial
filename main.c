@@ -24,7 +24,7 @@ int main(int argc, char** argv){
 	gettimeofday(&end_time,NULL);
 	timersub(&end_time,&start_time,&result_time);
 
-	fprintf(stderr,"Elapsed Time  : %ld(msec)\n",	1000*(result_time.tv_sec) + (result_time.tv_usec/1000));
+	fprintf(stderr,"Elapsed Time  : %ld(usec)\n",	1000000*(result_time.tv_sec) + (result_time.tv_usec));
 
 	return 0;
 }
