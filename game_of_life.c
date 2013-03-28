@@ -62,12 +62,13 @@ char ****Analysis_file(char* filename, int* parameters){
 
 	while(1){
 		if(buf[n] == '\n'){
-			parameters[par++] = atoi(temp);
+			parameters[par] = atoi(temp);
 			n++;
 			break;
 		}
 		else if(buf[n] == ' '){
-			parameters[par++] = atoi(temp);
+			parameters[par] = atoi(temp);
+			par++;
 			m = 0;
 		}
 		else  temp[m++]= buf[n];
