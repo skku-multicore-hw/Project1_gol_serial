@@ -7,8 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <sys/types.h>
 #include <unistd.h>
+#include <sys/types.h>
+
+
 
 //This function will return 3D_Cube
 char ***Make_3D_Cube(int dim){
@@ -63,7 +65,7 @@ char*** Analysis_file(char* filename, int* parameters){
 	}
 
 	dim = parameters[0];
-	Return_Cube = Make_3D_Cube(parameters[0]);
+	Return_Cube = Make_3D_Cube(dim);
 
 
 	for(i=0;i<dim;i++){
@@ -94,14 +96,27 @@ void Make_output_life(char*** Cube,int dim){
 	return ;
 }
 
+void Print_time(char* string,struct timeval *start_time){
+
+	struct timeval end_time, result_time;
+	gettimeofday(&end_time,NULL);
+	timersub(&end_time,start_time,&result_time);
+	fprintf(stderr,"%s Elapsed Time  : %ld(usec)\n",string,1000000*(result_time.tv_sec) + (result_time.tv_usec));
+
+	return ;
+}
+
 void game_of_life(char* filename){
 
 	int parameters[Parameter];
 	char ***Cube;
+	struct timeval start_time;
 //	int i,j,k;
 
+	gettimeofday(&start_time,NULL);
 	Cube = Analysis_file(filename,parameters);
-	Make_output_life(Cube,parameters[0]);
+	Print_time("Initialize",&start_time);
+//	Make_output_life(Cube,parameters[0]);
 // This Line test parameters
 // parameters[0] length
 // parameters[1] D1
