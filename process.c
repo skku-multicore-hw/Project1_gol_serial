@@ -24,7 +24,7 @@ int D2;
 int L1;
 int L2;
 
-//char odd;					//use for vector select e) vector[odd][i][j][k]
+char odd;					//use for vector select e) vector[odd][i][j][k]
 char even;
 char ****vector;
 
@@ -34,9 +34,10 @@ void vector_print();
 void pixel_judg(int, int, int);
 void pixel_kill(int, int, int);
 void pixel_live(int, int, int);
-char ****Make_3D_Cube_2(int);
+//char ****Make_3D_Cube_2(int);
 
 /* Initialize vector space */
+
 void vector_init() {
 	int i, j, k, o;
 	/*for (o = 0; o < 2; o++) {
@@ -57,6 +58,7 @@ void vector_init() {
 		}
 }
 
+/*
 char ****Make_3D_Cube_2(int dim){
 	char ****Make_Cube;
 	int i,j,k;
@@ -79,6 +81,7 @@ char ****Make_3D_Cube_2(int dim){
 	}
 	return Make_Cube;
 }
+*/
 
 /* Generate 1 step */
 void vector_generate() {
@@ -165,7 +168,7 @@ void pixel_live(int i, int j, int k) {
 }
 
 
-char**** process_main(int* parameters, char**** cube) {
+int process_main(int* parameters, char**** cube) {
 	int i, j;
 	AXIS  = parameters[0];
 	D1    = parameters[1];
@@ -211,16 +214,26 @@ char**** process_main(int* parameters, char**** cube) {
 		}
 	}
 */
-	return vector;
+	return (int)even;
 }
 /*
 void main(){
 	char**** cube;
 	int parameters[6];
+	parameters[0] =10;
+	parameters[1] =5;
+	parameters[2] =17;
+	parameters[3] =10;
+	parameters[4] =15;
+	parameters[5] =100;
 
-	vector = Make_3D_Cube_2(10);
+	odd = 1;
+	even = 0;
 
-	cube = process_main(parameters, vector);
+	vector = Make_3D_Cube_2(parameters[0]);
+	vector_init();
+
+	even = process_main(parameters, vector);
 	vector_print(cube);
 }
 */

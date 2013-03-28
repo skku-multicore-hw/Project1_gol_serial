@@ -149,9 +149,9 @@ void game_of_life(char* filename){
 	Cube = Analysis_file(filename,parameters);
 	Print_time("Initialize",&start_time);
 
-// gettimeofday(&start_time,NULL);
-//	nEorO = Process_Steps(Cube,parameters);
-//	Print_time("Processing",&start_time);
+	gettimeofday(&start_time,NULL);
+	nEorO = process_main(parameters,Cube);
+	Print_time("Processing",&start_time);
 
 	gettimeofday(&start_time,NULL);
 	Make_output_life(Cube,parameters[0],nEorO);
