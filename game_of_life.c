@@ -28,6 +28,28 @@ char ***Make_3D_Cube(int dim){
 	}
 	return Make_Cube;
 }
+char ****Make_3D_Cube_2(int dim){
+	char ****Make_Cube;
+	int i,j,k;
+
+	Make_Cube = (char****)malloc(2*sizeof(char***));
+	for(i=0;i<2;i++){
+		Make_Cube[i] = (char***)malloc(dim*sizeof(char**));
+	}
+	for(i=0;i<2;i++){
+		for(j=0;j<dim;j++){
+			Make_Cube[i][j] = (char**)malloc(dim*sizeof(char*));
+		}
+	}
+	for(i=0;i<2;i++){
+		for(j=0;j<dim;j++){
+			for(k=0;k<dim;k++){
+				Make_Cube[i][j][k] = (char*)malloc(dim*sizeof(char));
+			}
+		}
+	}
+	return Make_Cube;
+}
 // This function will return parameters and 3D_seed cell
 char*** Analysis_file(char* filename, int* parameters){
 
@@ -116,6 +138,7 @@ void game_of_life(char* filename){
 	gettimeofday(&start_time,NULL);
 	Cube = Analysis_file(filename,parameters);
 	Print_time("Initialize",&start_time);
+
 //	Make_output_life(Cube,parameters[0]);
 // This Line test parameters
 // parameters[0] length

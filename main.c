@@ -15,12 +15,10 @@ int main(int argc, char** argv){
 
 		return 1;
 	}
-	printf("Running game of life by openMP\n");
+	printf("Running game of life by Serialized Program \n");
 
 	gettimeofday(&start_time, NULL);
-
 	game_of_life(argv[1]);
-
 	Print_time("Program Total",&start_time);
 
 	return 0;
