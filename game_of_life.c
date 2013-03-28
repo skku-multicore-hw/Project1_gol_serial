@@ -9,26 +9,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <string.h>
+
+#define Parameter 6
 
 
 
-//This function will return 3D_Cube
-char ***Make_3D_Cube(int dim){
-	char ***Make_Cube;
-	int i,j;
-
-	Make_Cube = (char***)malloc(dim*sizeof(char**));
-	for(i=0;i<dim;i++){
-		Make_Cube[i] = (char**)malloc(dim*sizeof(char*));
-	}
-	for(i=0;i<dim;i++){
-		for(j=0;j<dim;j++){
-			Make_Cube[i][j] = (char*)malloc(dim*sizeof(char));
-		}
-	}
-	return Make_Cube;
-}
-char ****Make_3D_Cube_2(int dim){
+//This function will return two 3D_Cube Even,Odd
+char ****Make_3D_Cube(int dim){
 	char ****Make_Cube;
 	int i,j,k;
 
@@ -51,7 +39,7 @@ char ****Make_3D_Cube_2(int dim){
 	return Make_Cube;
 }
 // This function will return parameters and 3D_seed cell
-char*** Analysis_file(char* filename, int* parameters){
+char ****Analysis_file(char* filename, int* parameters){
 
 	int nFile_in;
 	int len;
@@ -59,7 +47,7 @@ char*** Analysis_file(char* filename, int* parameters){
 	char *buf;
 	int par=0,n=0,m=0;
 
-	char ***Return_Cube;
+	char ****Return_Cube;
 	int dim,i,j,k;
 
 	if((nFile_in = open(filename,O_RDONLY)) < 0){
@@ -95,12 +83,12 @@ char*** Analysis_file(char* filename, int* parameters){
 			for(k=0;k<dim;k++){
 				while(1){
 					if(buf[n] == '0'){
-						Return_Cube[i][j][k] = 0;
+						Return_Cube[0][i][j][k] = 0;
 						n++;
 						break;
 					}
 					else if(buf[n] == '1'){
-						Return_Cube[i][j][k] = 1;
+						Return_Cube[0][i][j][k] = 1;
 						n++;
 						break;
 					}
@@ -113,11 +101,32 @@ char*** Analysis_file(char* filename, int* parameters){
 	return Return_Cube;
 }
 //This function will make output.life
-void Make_output_life(char*** Cube,int dim){
+void Make_output_life(char**** Cube, int dim, int nEorO){
+	int nFile_out;
+	int i,j,k;
+	char string[20];
 
+	if((nFile_out = open("output.life",O_WRONLY|O_TRUNC|O_CREAT,0664)) < 0){
+		printf("file open error!\n");
+		exit(1);
+	}
+
+	for(i=0;i<dim;i++){
+		sprintf(string,"cell(x,y,%d)\n",i);
+		write(nFile_out,string,strlen(string));
+		for(j=0;j<dim;j++){
+			for(k=0;k<dim;k++){
+				if(Cube[nEorO][i][j][k]) write(nFile_out,"1",strlen("1"));
+				else write(nFile_out,"0",strlen("0"));
+				if(k==dim-1){
+					write(nFile_out,"\n",strlen("\n"));
+				}
+			}
+		}
+	}
 	return ;
 }
-
+//This function will Print time
 void Print_time(char* string,struct timeval *start_time){
 
 	struct timeval end_time, result_time;
@@ -131,15 +140,22 @@ void Print_time(char* string,struct timeval *start_time){
 void game_of_life(char* filename){
 
 	int parameters[Parameter];
-	char ***Cube;
+	char ****Cube;
 	struct timeval start_time;
 //	int i,j,k;
+	int nEorO=0;
 
 	gettimeofday(&start_time,NULL);
 	Cube = Analysis_file(filename,parameters);
 	Print_time("Initialize",&start_time);
 
-//	Make_output_life(Cube,parameters[0]);
+// gettimeofday(&start_time,NULL);
+//	nEorO = Process_Steps(Cube,parameters);
+//	Print_time("Processing",&start_time);
+
+	gettimeofday(&start_time,NULL);
+	Make_output_life(Cube,parameters[0],nEorO);
+	Print_time("Making output.life",&start_time);
 // This Line test parameters
 // parameters[0] length
 // parameters[1] D1
@@ -155,15 +171,15 @@ void game_of_life(char* filename){
 	for(i=0;i<parameters[0];i++){
 		for(j=0;j<parameters[0];j++){
 			for(k=0;k<parameters[0];k++){
-				printf("Cube[%d][%d][%d] is ",i,j,k);
-				printf("%4d : " ,Cube[i][j][k]);
-				printf("0x%p",&Cube[i][j][k]);
+				printf("Cube[0][%d][%d][%d] is ",i,j,k);
+				printf("%4d : " ,Cube[0][i][j][k]);
+				printf("0x%p",&Cube[0][i][j][k]);
 				printf("\n");
 			}
 		}
 	}
-*/
 
+*/
 
 	return ;
 }
