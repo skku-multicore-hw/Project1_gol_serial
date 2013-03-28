@@ -62,17 +62,20 @@ char ****Analysis_file(char* filename, int* parameters){
 
 	while(1){
 		if(buf[n] == '\n'){
-			parameters[par] = atoi(temp);
+			parameters[par++] = atoi(temp);
 			n++;
 			break;
 		}
 		else if(buf[n] == ' '){
-			parameters[par] = atoi(temp);
-			par++;
+			parameters[par++] = atoi(temp);
+			memset(temp,0,sizeof(char)*10);
 			m = 0;
 		}
 		else  temp[m++]= buf[n];
 		n++;
+	}
+	for(i=0;i<Parameter;i++){
+		printf("parameters[%d] = %d\n",i,parameters[i]);
 	}
 
 	dim = parameters[0];
