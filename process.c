@@ -13,8 +13,8 @@ int D2;
 int L1;
 int L2;
 
-char odd;					//use for vector select e) vector[odd][i][j][k]
-char even;
+int odd;					//use for vector select e) vector[odd][i][j][k]
+int even;
 char ****vector;
 
 void vector_generate();
@@ -90,7 +90,7 @@ void pixel_live(int i, int j, int k) {
 
 
 int process_main(int* parameters, char**** cube) {
-	int i, j;
+	int i/*, j*/;
 	AXIS  = parameters[0];
 	D1    = parameters[1];
 	D2    = parameters[2];
