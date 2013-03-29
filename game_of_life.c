@@ -74,9 +74,9 @@ char ****Analysis_file(char* filename, int* parameters){
 		else  temp[m++]= buf[n];
 		n++;
 	}
-	for(i=0;i<Parameter;i++){
-		printf("parameters[%d] = %d\n",i,parameters[i]);
-	}
+//	for(i=0;i<Parameter;i++){
+//		printf("parameters[%d] = %d\n",i,parameters[i]);
+//	}
 
 	dim = parameters[0];
 	Return_Cube = Make_3D_Cube(dim);
